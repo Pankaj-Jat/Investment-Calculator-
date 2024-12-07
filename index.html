@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate your SIP and SWP investments with our modern calculator">
+    <meta name="theme-color" content="#2563eb">
+    <title>Investment Calculator - SIP & SWP</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"></noscript>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+</head>
+<body>
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <div class="logo" role="heading" aria-level="1">Investment Calculator</div>
+            <div class="nav-links">
+                <a href="#sip" aria-label="Go to SIP calculator">SIP</a>
+                <a href="#swp" aria-label="Go to SWP calculator">SWP</a>
+                <a href="#education" aria-label="Go to education section">Learn</a>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main">
+        <section id="hero" aria-label="Hero section">
+            <h1>Plan Your Financial Future</h1>
+            <p>Calculate your SIP returns and plan systematic withdrawals with our easy-to-use calculators</p>
+        </section>
+
+        <div class="calculator-container">
+            <!-- SIP Calculator Section -->
+            <section id="sip" class="calculator-section" aria-labelledby="sip-heading">
+                <h2 id="sip-heading">SIP Calculator</h2>
+                <div class="calculator-grid">
+                    <div class="input-section">
+                        <form id="sip-form" aria-label="SIP calculator form">
+                            <div class="form-group">
+                                <label for="sip-amount">Monthly Investment Amount (₹)</label>
+                                <input type="number" 
+                                       id="sip-amount" 
+                                       required 
+                                       min="500"
+                                       placeholder="Enter amount"
+                                       aria-describedby="sip-amount-tooltip"
+                                       autocomplete="off">
+                                <div class="tooltip" id="sip-amount-tooltip" role="tooltip">The amount you plan to invest monthly</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sip-return">Expected Annual Return (%)</label>
+                                <input type="number" 
+                                       id="sip-return" 
+                                       required 
+                                       min="1" 
+                                       max="30" 
+                                       step="0.1"
+                                       placeholder="Enter expected return"
+                                       aria-describedby="sip-return-tooltip"
+                                       autocomplete="off">
+                                <div class="tooltip" id="sip-return-tooltip" role="tooltip">Expected yearly returns on your investment</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sip-tenure">Investment Period (Years)</label>
+                                <input type="number" 
+                                       id="sip-tenure" 
+                                       required 
+                                       min="1" 
+                                       max="40"
+                                       placeholder="Enter period"
+                                       aria-describedby="sip-tenure-tooltip"
+                                       autocomplete="off">
+                                <div class="tooltip" id="sip-tenure-tooltip" role="tooltip">How long you plan to invest</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tax-rate">Tax Rate (%)</label>
+                                <input type="number" 
+                                       id="tax-rate" 
+                                       value="10" 
+                                       min="0" 
+                                       max="40"
+                                       placeholder="Enter tax rate"
+                                       aria-describedby="tax-rate-tooltip"
+                                       autocomplete="off">
+                                <div class="tooltip" id="tax-rate-tooltip" role="tooltip">Applicable tax rate on your gains</div>
+                            </div>
+                            <div class="button-group">
+                                <button type="submit" class="calculate-btn">Calculate</button>
+                                <button type="reset" class="reset-btn">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="result-section" aria-live="polite">
+                        <div class="result-card">
+                            <h3>Investment Summary</h3>
+                            <div id="sip-results">
+                                <p>Total Investment: <span id="total-investment">₹0</span></p>
+                                <p>Expected Returns: <span id="expected-returns">₹0</span></p>
+                                <p>Tax Amount: <span id="tax-amount">₹0</span></p>
+                                <p>Final Amount: <span id="final-amount">₹0</span></p>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="sip-chart" role="img" aria-label="SIP growth chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SWP Calculator Section -->
+            <section id="swp" class="calculator-section" aria-labelledby="swp-heading">
+                <h2 id="swp-heading">SWP Calculator</h2>
+                <div class="calculator-grid">
+                    <div class="input-section">
+                        <form id="swp-form" aria-label="SWP calculator form">
+                            <div class="form-group">
+                                <label for="initial-investment">Initial Investment (₹)</label>
+                                <input type="number" 
+                                       id="initial-investment" 
+                                       required 
+                                       min="10000"
+                                       placeholder="Enter amount"
+                                       aria-describedby="initial-investment-tooltip"
+                                       autocomplete="off">
+                                <div class="tooltip" id="initial-investment-tooltip" role="tooltip">Your initial corpus amount</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="swp-return">Expected Annual Return (%)</label>
+                                <input type="number" 
+                                       id="swp-return" 
+                                       required 
+                                       min="1" 
+                                       max="30" 
+                                       step="0.1"
+                                       placeholder="Enter expected return"
+                                       aria-describedby="swp-return-tooltip"
+                                       autocomplete="off">
+                                <div class="tooltip" id="swp-return-tooltip" role="tooltip">Expected yearly returns on your investment</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="swp-tenure">Withdrawal Period (Years)</label>
+                                <input type="number" 
+                                       id="swp-tenure" 
+                                       required 
+                                       min="1" 
+                                       max="40"
+                                       placeholder="Enter period"
+                                       aria-describedby="swp-tenure-tooltip"
+                                       autocomplete="off">
+                                <div class="tooltip" id="swp-tenure-tooltip" role="tooltip">How long you plan to withdraw</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="monthly-withdrawal">Monthly Withdrawal (₹)</label>
+                                <input type="number" 
+                                       id="monthly-withdrawal" 
+                                       required 
+                                       min="1000"
+                                       placeholder="Enter amount"
+                                       aria-describedby="monthly-withdrawal-tooltip"
+                                       autocomplete="off">
+                                <div class="tooltip" id="monthly-withdrawal-tooltip" role="tooltip">Amount you wish to withdraw monthly</div>
+                            </div>
+                            <div class="button-group">
+                                <button type="submit" class="calculate-btn">Calculate</button>
+                                <button type="reset" class="reset-btn">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="result-section" aria-live="polite">
+                        <div class="result-card">
+                            <h3>Withdrawal Summary</h3>
+                            <div id="swp-results">
+                                <p>Total Withdrawals: <span id="total-withdrawals">₹0</span></p>
+                                <p>Expected Returns: <span id="swp-returns">₹0</span></p>
+                                <p>Final Balance: <span id="final-balance">₹0</span></p>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="swp-chart" role="img" aria-label="SWP growth chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Educational Section -->
+        <section id="education" class="education-section" aria-labelledby="education-heading">
+            <h2 id="education-heading">Understanding Your Investments</h2>
+            <div class="education-grid">
+                <article class="education-card">
+                    <h3>What is SIP?</h3>
+                    <p>A Systematic Investment Plan (SIP) allows you to invest a fixed amount regularly in mutual funds or other investment vehicles. It helps in building wealth through the power of compounding and rupee cost averaging.</p>
+                </article>
+                <article class="education-card">
+                    <h3>What is SWP?</h3>
+                    <p>A Systematic Withdrawal Plan (SWP) enables you to withdraw a fixed amount regularly from your accumulated investments. It's ideal for generating regular income from your investment corpus.</p>
+                </article>
+                <article class="education-card">
+                    <h3>Tax Implications</h3>
+                    <p>Long-term capital gains from equity mutual funds are taxed at 10% for gains above ₹1 lakh in a financial year. Short-term capital gains are taxed at 15%.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <nav aria-label="Footer navigation">
+                    <a href="#sip">SIP Calculator</a>
+                    <a href="#swp">SWP Calculator</a>
+                    <a href="#education">Learn More</a>
+                </nav>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <nav aria-label="Legal links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Disclaimer</a>
+                </nav>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <address>
+                    <p>Email: <a href="mailto:support@investcalc.com">support@investcalc.com</a></p>
+                    <p>Phone: <a href="tel:+91XXXXXXXXXX">+91 XXX XXX XXXX</a></p>
+                </address>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <time datetime="2024">2024</time> Investment Calculator. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/script.js" defer></script>
+</body>
+</html>
